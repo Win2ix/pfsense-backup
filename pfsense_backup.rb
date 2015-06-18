@@ -1,7 +1,6 @@
 #!/usr/bin/ruby
 
 require 'optparse'
-require 'etc'
 require 'highline/import'
 require 'net/scp'
 
@@ -36,7 +35,7 @@ if ARGV.length == 0
 end
 
 # Default to current user.
-user = options[:username] || Etc.getlogin
+user = options[:username] || ENV['USER']
 
 # Default ssh key
 ssh_key = options[:sshkey] || Dir.glob("#{ENV['HOME']}/.ssh/id_?sa")[0]
