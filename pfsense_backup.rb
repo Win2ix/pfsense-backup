@@ -3,7 +3,6 @@
 require 'optparse'
 require 'etc'
 require 'highline/import'
-require 'net/ssh'
 require 'net/scp'
 
 # Display help if no arguments given.
