@@ -5,6 +5,13 @@ require 'etc'
 require 'highline/import'
 require 'net/scp'
 
+def ssh_key_file
+  ['d','r'].each do |i|
+    key_file = "#{ENV['HOME']}/.ssh/id_#{i}sa"
+    return key_file if File.file?(key_file)
+  end
+end
+
 # Display help if no arguments given.
 ARGV << '-h' if ARGV.empty?
 
@@ -20,7 +27,7 @@ OptionParser.new do |opts|
   end
 
   opts.on('-k', '--key (ssh key)',
-          'Defaults to ~/.ssh/id_rsa (if present)') do |k|
+          'Defaults to ~/.ssh/id_rsa or ~/.ssh/id_dsa (if present)') do |k|
     options[:sshkey] = k
   end
 
@@ -39,7 +46,7 @@ end
 user = options[:username] || Etc.getlogin
 
 # Default ssh key
-ssh_key = options[:sshkey] || "#{ENV['HOME']}/.ssh/id_rsa"
+ssh_key = options[:sshkey] || ssh_key_file
 
 # Warn if key isn't found.
 puts "#{ssh_key} not found." unless File.file?(ssh_key)
