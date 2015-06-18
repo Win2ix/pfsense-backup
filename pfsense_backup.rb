@@ -41,17 +41,19 @@ user = options[:username] || Etc.getlogin
 # Default ssh key
 ssh_key = options[:sshkey] || Dir.glob("#{ENV['HOME']}/.ssh/id_?sa")[0]
 
-# Warn if key isn't found.
-puts "#{ssh_key} not found." unless File.file?(ssh_key)
-
 ARGV.each do |host|
-  unless File.file?(ssh_key)
+  unless File.file?(ssh_key.to_s)
+    # Warn if key isn't found.
+    puts "No ssh keys found."
+
+    # Use a password instead.
     begin
       pass = ask("#{user}@#{host}'s password: ") { |q| q.echo = false }
     rescue => e
       puts e
     end
   end
+
   begin
     outfile = "config-#{host}-#{Time.now.strftime "%Y%m%d%k%M%S"}.xml"
     Net::SCP.start(host, user, :password => pass) do |scp|
