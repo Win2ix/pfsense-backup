@@ -39,7 +39,7 @@ end
 user = options[:username] || Etc.getlogin
 
 # Default ssh key
-ssh_key ||= options[:sshkey] || "#{Dir.home}/.ssh/id_rsa"
+ssh_key = options[:sshkey] || "#{Dir.home}/.ssh/id_rsa"
 
 # Warn if key isn't found.
 puts "#{ssh_key} not found." unless File.file?(ssh_key)
