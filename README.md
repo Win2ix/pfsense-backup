@@ -19,9 +19,9 @@ Multiple servers can be specified.
 
 
 ## Installation
-If you have Bundler, simply running `bundle install` should work.
 
-Otherwise, install net-scp and highline with gem:
+pfSens-backup uses the `net-scp` and `highline` gems.  If you have Bundler,
+simply running `bundle install` should work.  Otherwise, install them with `gem`:
 ```
 gem install net-scp
 gem install highline
