@@ -1,7 +1,26 @@
 # pfSense-backup
 Simple program to download pfSense's configuration using SSH.
 
-## License
+## Example Usage
+To simply download the configuration to the current directory as the currently
+logged in user:
+```sh
+./pfsense-backup servername
+```
+
+By default, it will look for a key in ~/.ssh, and ask for a password if none are
+found.  To specify a key, use:
+
+```sh
+./pfsense-backup -k /path/to/key
+```
+
+Multiple servers can be specified.
+```sh
+./pfsense-backup servername1 servername2 servername3
+```
+
+### License
 
 Copyright (c) 2015, Win2ix Systems Inc
 All rights reserved.
