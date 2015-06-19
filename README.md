@@ -1,7 +1,16 @@
 # pfSense-backup
 Simple program to download pfSense's configuration using SSH.
 
-## Example Usage
+## Usage
+> Usage: ./pfsense-backup [options] servers
+> 
+>     -u, --username (username)        Defaults to current user
+>     -k, --key (ssh key)              Defaults to ~/.ssh/id_rsa or ~/.ssh/id_dsa (if present)
+>     -p, --port (ssh port)            Defaults to 22
+>     -d, --dir (output directory)     Defaults to current directory
+>     -h, --help                       Show this help
+
+### Examples
 To simply download the configuration to the current directory as the currently
 logged in user:
 ```sh
