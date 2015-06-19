@@ -23,6 +23,11 @@ OptionParser.new do |opts|
     options[:sshkey] = k
   end
 
+  opts.on('-p', '--port (ssh port)',
+          'Defaults to 22') do |p|
+    options[:port] = p
+  end
+
   opts.on('-h', '--help', 'Show this help') do
     puts opts
     exit
@@ -36,6 +41,9 @@ end
 
 # Default to current user.
 user = options[:username] || ENV['USER']
+
+# Default port.
+port = options[:port] || 22
 
 # Default ssh key
 ssh_key = options[:sshkey] || Dir.glob("#{ENV['HOME']}/.ssh/id_?sa")[0]
@@ -55,7 +63,7 @@ ARGV.each do |host|
 
   begin
     outfile = "config-#{host}-#{Time.now.strftime "%Y%m%d%k%M%S"}.xml"
-    Net::SCP.start(host, user, :password => pass) do |scp|
+    Net::SCP.start(host, user, :password => pass, :port => port) do |scp|
       puts "Downloading " + outfile
       scp.download('/conf/config.xml', outfile)
     end
