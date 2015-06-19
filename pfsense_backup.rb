@@ -28,6 +28,11 @@ OptionParser.new do |opts|
     options[:port] = p
   end
 
+  opts.on('-d', '--dir (output directory)',
+          'Defaults to current directory') do |d|
+    options[:outdir] = d
+  end
+
   opts.on('-h', '--help', 'Show this help') do
     puts opts
     exit
@@ -48,6 +53,16 @@ port = options[:port] || 22
 # Default ssh key
 ssh_key = options[:sshkey] || Dir.glob("#{ENV['HOME']}/.ssh/id_?sa")[0]
 
+# Default outpud directory
+outdir = options[:outdir] || '.'
+
+unless File.directory?(outdir)
+  puts "Directory #{outdir} does not exist."
+  exit 1
+end
+
+outdir += '/'
+
 ARGV.each do |host|
   unless File.file?(ssh_key.to_s)
     # Warn if key isn't found.
@@ -65,7 +80,7 @@ ARGV.each do |host|
     outfile = "config-#{host}-#{Time.now.strftime "%Y%m%d%k%M%S"}.xml"
     Net::SCP.start(host, user, :password => pass, :port => port) do |scp|
       puts "Downloading " + outfile
-      scp.download('/conf/config.xml', outfile)
+      scp.download('/conf/config.xml', outdir + outfile)
     end
   rescue => e
     puts e
