@@ -17,6 +17,24 @@ Multiple servers can be specified.
 ./pfsense-backup servername1 servername2 servername3
 ```
 
+
+## Installation
+If you have Bundler, simply running `bundle install` should work.
+
+Otherwise, install net-scp and highline with gem:
+```
+gem install net-scp
+gem install highline
+```
+
+For older Linux distributions still using Ruby 1.8 (i.e. Ubuntu Lucid), you
+might be able to install these gems through the package manager.
+
+In Lucid, for example:
+```
+apt-get install libhighline-ruby libnet-scp-ruby
+```
+
 ### License
 
 Copyright (c) 2015, Win2ix Systems Inc
